@@ -1,8 +1,10 @@
 import React from "react";
 import "../App.css";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./home";
 import Cobrancas from "./cobrancas";
 import Clientes from "./clientes";
+import AdicionarCliente from "./adicionarCliente";
 
 export default function Dashboard() {
   return (
@@ -11,7 +13,7 @@ export default function Dashboard() {
         <aside>
           <ul>
             <li>
-              <a href="/">Home</a>
+              <a href="/home">Home</a>
             </li>
             <li>
               <a href="/cobrancas">Cobranças</a>
@@ -21,13 +23,14 @@ export default function Dashboard() {
             </li>
           </ul>
 
-          <button>Criar cobrança</button>
+          <a href="/criarCobranca">Criar cobrança</a>
         </aside>
         <main>
           <Switch>
-            <Route exact path="/home" component={Home} />
+            <Route exact path="/dashboard" component={Home} />
             <Route path="/cobrancas" component={Cobrancas} />
             <Route path="/clientes" component={Clientes} />
+            <Route path="/adicionarCliente" component={AdicionarCliente} />
           </Switch>
         </main>
       </div>

@@ -3,6 +3,14 @@ import "../App.css";
 import Header from "../components/header";
 
 export default function Home() {
+  React.useEffect(() => {
+    fetch("https://cubos-desafio-4.herokuapp.com/relatorios")
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log(resJson);
+      });
+  }, []);
+
   return (
     <div className="home">
       <Header />
