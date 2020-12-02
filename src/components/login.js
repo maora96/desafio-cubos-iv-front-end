@@ -1,19 +1,14 @@
 import React from "react";
 import "../App.css";
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter, Link, useHistory } from "react-router-dom";
 import { fazerRequisicaoComBody } from "../utils/fetch";
 import Dashboard from "../pages/dashboard";
+import { useToken } from "../App";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [token, setToken] = React.useState(null);
+  const { token, setToken } = useToken();
   const history = useHistory();
 
   return (
@@ -35,8 +30,14 @@ export default function Login() {
                 .then((resJson) => {
                   const dados = resJson.dados;
                   console.log(dados);
+                  const novoToken = resJson.dados.token;
+                  setToken(novoToken);
                   setEmail("");
                   setPassword("");
+                  if (resJson.dados.token) {
+                    setToken(resJson.dados.token);
+                    localStorage.setItem("token", resJson.dados.token);
+                  }
                   history.push("/dashboard");
                 });
             }}
@@ -64,7 +65,6 @@ export default function Login() {
             <button>Entrar</button>
           </form>
           Não tem uma conta?<a href="/signup">Cadastre-se</a>
-          <a href="/dashboard">Dashboard</a>
         </div>
       )}
     </BrowserRouter>

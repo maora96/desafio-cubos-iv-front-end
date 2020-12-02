@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 import Header from "../components/header";
 import { fazerRequisicaoComBody } from "../utils/fetch";
-import { useRouteMatch, Link } from "react-router-dom";
+import { useRouteMatch, Link, useHistory } from "react-router-dom";
 
 export default function AdicionarCliente() {
   const [id, setId] = React.useState(null);
@@ -12,25 +12,30 @@ export default function AdicionarCliente() {
   const [tel, setTel] = React.useState("");
 
   const { params } = useRouteMatch();
+
+  const history = useHistory();
   return (
     <div className="home">
       <Header />
 
       <div className="content">
-        <h1>Adicionar cliente</h1>
+        <h1>Editar cliente</h1>
         <form
           onSubmit={(event) => {
+            const novoToken = localStorage.getItem("token");
+
             event.preventDefault();
             fazerRequisicaoComBody(
-              "https://cubos-desafio-4.herokuapp.com/clientes",
+              "http://localhost:8081/clientes",
               "PUT",
               {
-                id: params,
+                id: params.id,
                 nome,
                 cpf,
                 email,
                 tel,
-              }
+              },
+              novoToken
             )
               .then((res) => res.json())
               .then((resJson) => {
@@ -39,6 +44,8 @@ export default function AdicionarCliente() {
                 setCPF("");
                 setTel("");
                 setEmail("");
+
+                history.push("/sucesso");
               });
           }}
         >
@@ -80,7 +87,7 @@ export default function AdicionarCliente() {
           </label>
 
           <Link to="/clientes">Cancelar</Link>
-          <button>Adicionar cliente</button>
+          <button>Editar cliente</button>
         </form>
       </div>
     </div>

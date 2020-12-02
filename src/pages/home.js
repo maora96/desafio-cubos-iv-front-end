@@ -1,20 +1,28 @@
 import React from "react";
 import "../App.css";
 import Header from "../components/header";
+import { useToken } from "../App";
 
 export default function Home() {
+  const { token, setToken } = useToken();
+  const [relatorio, setRelatorio] = React.useState(null);
   React.useEffect(() => {
-    fetch("https://cubos-desafio-4.herokuapp.com/relatorios")
+    const novoToken = localStorage.getItem("token");
+    fetch("http://localhost:8081/relatorios", {
+      headers: {
+        Authorization: novoToken && `Bearer ${novoToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson);
+        const novoRelatorio = resJson.dados.relatorio;
+        setRelatorio(novoRelatorio);
       });
-  }, []);
+  }, [token, setToken]);
 
   return (
     <div className="home">
       <Header />
-
       <div className="content">
         <ul>
           <li>Este mês</li>
@@ -27,26 +35,26 @@ export default function Home() {
             <h2>Clientes</h2>
             <div>
               Em dia
-              <span>0</span>
+              <span>{relatorio?.qtdClientesAdimplentes}</span>
             </div>
             <div>
               Inadimplentes
-              <span>0</span>
+              <span>{relatorio?.qtdClientesInadimplentes}</span>
             </div>
           </div>
           <div>
             <h2>Cobranças</h2>
             <div>
               Previstas
-              <span>0</span>
+              <span>{relatorio?.qtdCobrancasPrevistas}</span>
             </div>
             <div>
               Vencidas
-              <span>0</span>
+              <span>{relatorio?.qtdCobrancasVencidas}</span>
             </div>
             <div>
               Pagas
-              <span>0</span>
+              <span>{relatorio?.qtdCobrancasPagas}</span>
             </div>
           </div>
         </div>

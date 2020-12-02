@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./home";
 import Cobrancas from "./cobrancas";
 import Clientes from "./clientes";
@@ -23,12 +23,12 @@ export default function Dashboard() {
             </li>
           </ul>
 
-          <a href="/criarCobranca">Criar cobrança</a>
+          <a href="/adicionarCobranca">Criar cobrança</a>
         </aside>
         <main>
           <Switch>
             <Route exact path="/dashboard" component={Home} />
-            <Route path="/cobrancas" component={Cobrancas} />
+            <Route exact path="/cobrancas" component={Cobrancas} />
             <Route path="/clientes" component={Clientes} />
             <Route path="/adicionarCliente" component={AdicionarCliente} />
           </Switch>

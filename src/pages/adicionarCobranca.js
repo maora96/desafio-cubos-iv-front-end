@@ -2,12 +2,32 @@ import React from "react";
 import "../App.css";
 import Header from "../components/header";
 import { fazerRequisicaoComBody } from "../utils/fetch";
+import { Link, useHistory } from "react-router-dom";
 
 export default function AdicionarCobranca() {
   const [id, setId] = React.useState(null);
   const [descricao, setDescricao] = React.useState("");
   const [valor, setValor] = React.useState(null);
   const [vencimento, setVencimento] = React.useState("");
+
+  const [clientes, setClientes] = React.useState([]);
+
+  const history = useHistory();
+
+  React.useEffect(() => {
+    const novoToken = localStorage.getItem("token");
+    fetch("http://localhost:8081/clientes", {
+      headers: {
+        Authorization: novoToken && `Bearer ${novoToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log(resJson);
+        const novaCliente = resJson.dados.clientes;
+        setClientes(novaCliente);
+      });
+  }, []);
 
   return (
     <div className="home">
@@ -17,35 +37,47 @@ export default function AdicionarCobranca() {
         <h1>Adicionar cobrança</h1>
         <form
           onSubmit={(event) => {
+            console.log(id);
+            const novoToken = localStorage.getItem("token");
             event.preventDefault();
+            console.log(id, descricao, valor, vencimento);
             fazerRequisicaoComBody(
-              "https://cubos-desafio-4.herokuapp.com/cobrancas",
+              "http://localhost:8081/cobrancas",
               "POST",
               {
-                idDoClienet: id,
+                idDoCliente: id,
                 descricao,
                 valor,
                 vencimento,
-              }
+              },
+              novoToken
             )
               .then((res) => res.json())
               .then((resJson) => {
                 console.log(resJson);
-                setIdn(null);
+                setId(null);
                 setDescricao("");
                 setValor(null);
                 setVencimento("");
+
+                history.push("/sucesso");
               });
           }}
         >
           <label>
             Cliente
-            <input
-              type="text"
+            <select
+              name="clientes"
               onChange={(event) => {
-                setId(event.target.value);
+                const newId = event.target.value;
+                setId(newId);
+                console.log(newId);
               }}
-            ></input>
+            >
+              {clientes.map((cliente) => (
+                <option value={cliente.id}>{cliente.nome}</option>
+              ))}
+            </select>
           </label>
           <label>
             Descrição
@@ -53,6 +85,7 @@ export default function AdicionarCobranca() {
               type="text"
               onChange={(event) => {
                 setDescricao(event.target.value);
+                console.log(descricao);
               }}
             ></input>
           </label>
@@ -76,7 +109,7 @@ export default function AdicionarCobranca() {
           </label>
 
           <Link to="/dashboard">Cancelar</Link>
-          <button>Adicionar cliente</button>
+          <button>Adicionar cobrança</button>
         </form>
       </div>
     </div>
