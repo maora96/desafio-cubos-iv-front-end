@@ -1,8 +1,10 @@
 import React from "react";
 import "../App.css";
+import { useHistory } from "react-router-dom";
 
 export default function Header() {
   const [relatorio, setRelatorio] = React.useState([]);
+  const history = useHistory();
 
   React.useEffect(() => {
     const novoToken = localStorage.getItem("token");
@@ -18,11 +20,23 @@ export default function Header() {
       });
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    history.push("/");
+  };
+
   return (
     <header>
       <div className="saldo">$ saldo em conta R$ {relatorio?.saldoEmConta}</div>
 
-      <div className="logout">logout</div>
+      <div
+        className="logout"
+        onClick={() => {
+          logout();
+        }}
+      >
+        logout
+      </div>
     </header>
   );
 }

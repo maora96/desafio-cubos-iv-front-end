@@ -2,6 +2,7 @@ import React from "react";
 import "../App.css";
 import Header from "../components/header";
 import Pagination from "../components/pagination";
+import Sidebar from "../components/sidebar";
 
 const colunas = [
   "Cliente",
@@ -12,7 +13,7 @@ const colunas = [
 ];
 
 const props = [
-  "nome",
+  "data",
   "cobrancasFeitas",
   "cobrancasRecebidas",
   "estaInadimplente",
@@ -22,11 +23,9 @@ const props = [
 export default function Clientes() {
   const [busca, setBusca] = React.useState("");
   const [clientes, setClientes] = React.useState([]);
-  const [paginaAtual = 1, setPaginaAtual] = React.useState(1);
+  const [paginaAtual, setPaginaAtual] = React.useState(1);
   const [totalPaginas, setTotalPaginas] = React.useState(null);
-  //?clientesPorPagina=10&&offset=${
-  //paginaAtual * 10 - 10
-  //}
+
   React.useEffect(() => {
     const novoToken = localStorage.getItem("token");
     fetch(`http://localhost:8081/clientes`, {
@@ -61,10 +60,16 @@ export default function Clientes() {
         const novaCliente = resJson.dados.clientes;
         novaCliente.forEach((cliente) => {
           cliente.edit = `http://localhost:3000/editarCliente/${cliente.id}`;
+          cliente.estaInadimplente =
+            cliente.estaInadimplente === false ? "EM DIA" : "INADIMPLENTE";
+          cliente.cobrancasFeitas = `R$ ${cliente.cobrancasFeitas / 100},00`;
+          cliente.cobrancasRecebidas = `R$ ${
+            cliente.cobrancasRecebidas / 100
+          },00`;
+          cliente.data = [cliente.nome, cliente.email, cliente.tel];
+          console.log(cliente.data);
         });
         setClientes(novaCliente);
-        const novaPagina = resJson.dados.paginaAtual;
-        setPaginaAtual(novaPagina);
       });
   }, [paginaAtual]);
 
@@ -73,7 +78,6 @@ export default function Clientes() {
     for (let i = 1; i <= totalPaginas; i++) {
       pages.push(i);
     }
-    console.log(pages);
   };
 
   numberOfPages(totalPaginas);
@@ -81,7 +85,9 @@ export default function Clientes() {
   return (
     <div className="clientes">
       <Header />
-
+      <div>
+        <Sidebar />
+      </div>
       <div className="search">
         <a href="/adicionarCliente">Adicionar cliente</a>
         <form
@@ -95,7 +101,6 @@ export default function Clientes() {
                 Authorization: novoToken && `Bearer ${novoToken}`,
               },
             })
-              ///adicionar busca clientes por pagina offset
               .then((res) => res.json())
               .then((resJson) => {
                 console.log(resJson);
@@ -127,7 +132,15 @@ export default function Clientes() {
             {clientes.map((cliente) => (
               <tr>
                 {props.map((prop) => (
-                  <td>{cliente[prop]}</td>
+                  <td>
+                    {prop === "edit" ? (
+                      <a href={cliente[prop]}>Editar</a>
+                    ) : prop === "data" ? (
+                      cliente[prop].map((d) => <span>{d}</span>)
+                    ) : (
+                      cliente[prop]
+                    )}
+                  </td>
                 ))}
               </tr>
             ))}
@@ -137,7 +150,7 @@ export default function Clientes() {
         <div className="pagination">
           {pages.map((page) => (
             <div
-              onClick={(event) => {
+              onClick={() => {
                 setPaginaAtual(page);
               }}
             >

@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 import { BrowserRouter, Link, useHistory } from "react-router-dom";
 import { fazerRequisicaoComBody } from "../utils/fetch";
-import Dashboard from "../pages/dashboard";
+import Dashboard from "./dashboard";
 import { useToken } from "../App";
 
 export default function Login() {

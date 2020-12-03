@@ -2,6 +2,7 @@ import React from "react";
 import "../App.css";
 import Header from "../components/header";
 import { useToken } from "../App";
+import Sidebar from "../components/sidebar";
 
 const colunas = [
   "Cliente",
@@ -61,9 +62,20 @@ export default function Cobrancas() {
       .then((resJson) => {
         console.log(resJson);
         const novaCobranca = resJson.dados.cobrancas;
+        novaCobranca.forEach((cobranca) => {
+          cobranca.status =
+            cobranca.status === "AGUARDANDO"
+              ? "PENDENTE"
+              : cobranca.status === "PAGO"
+              ? "PAGO"
+              : "VENCIDO";
+          const month = new Date(cobranca.vencimento).getMonth() + 1;
+          const year = new Date(cobranca.vencimento).getFullYear();
+          const day = new Date(cobranca.vencimento).getDate();
+          cobranca.vencimento = `${day}/${month}/${year}`;
+          cobranca.valor = `R$ ${cobranca.valor / 100},00`;
+        });
         setCobrancas(novaCobranca);
-        const novaPagina = resJson.dados.paginaAtual;
-        setPaginaAtual(novaPagina);
       });
   }, [paginaAtual]);
   const pages = [];
@@ -71,7 +83,6 @@ export default function Cobrancas() {
     for (let i = 1; i <= totalPaginas; i++) {
       pages.push(i);
     }
-    console.log(pages);
   };
 
   numberOfPages(totalPaginas);
@@ -79,6 +90,9 @@ export default function Cobrancas() {
   return (
     <div className="cobrancas">
       <Header />
+      <div>
+        <Sidebar />
+      </div>
       <div className="search">
         <form
           onSubmit={(event) => {
@@ -123,7 +137,13 @@ export default function Cobrancas() {
             {cobrancas.map((cobranca) => (
               <tr>
                 {props.map((prop) => (
-                  <td>{cobranca[prop]}</td>
+                  <td>
+                    {prop === "linkDoBoleto" ? (
+                      <a href={cobranca[prop]}>Boleto</a>
+                    ) : (
+                      cobranca[prop]
+                    )}
+                  </td>
                 ))}
               </tr>
             ))}

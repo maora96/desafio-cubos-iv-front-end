@@ -3,6 +3,7 @@ import "../App.css";
 import Header from "../components/header";
 import { fazerRequisicaoComBody } from "../utils/fetch";
 import { Link, useHistory } from "react-router-dom";
+import Sidebar from "../components/sidebar";
 
 export default function AdicionarCliente() {
   const [nome, setNome] = React.useState("");
@@ -16,6 +17,9 @@ export default function AdicionarCliente() {
     <div className="home">
       <Header />
 
+      <div>
+        <Sidebar />
+      </div>
       <div className="content">
         <h1>Adicionar cliente</h1>
         <form

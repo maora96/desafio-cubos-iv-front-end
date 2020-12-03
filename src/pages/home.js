@@ -2,13 +2,16 @@ import React from "react";
 import "../App.css";
 import Header from "../components/header";
 import { useToken } from "../App";
+import Sidebar from "../components/sidebar";
 
 export default function Home() {
   const { token, setToken } = useToken();
   const [relatorio, setRelatorio] = React.useState(null);
+  const [periodo, setPeriodo] = React.useState("mes");
+
   React.useEffect(() => {
     const novoToken = localStorage.getItem("token");
-    fetch("http://localhost:8081/relatorios", {
+    fetch(`http://localhost:8081/relatorios?periodo=${periodo}`, {
       headers: {
         Authorization: novoToken && `Bearer ${novoToken}`,
       },
@@ -16,18 +19,42 @@ export default function Home() {
       .then((res) => res.json())
       .then((resJson) => {
         const novoRelatorio = resJson.dados.relatorio;
+        console.log(novoRelatorio);
         setRelatorio(novoRelatorio);
       });
-  }, [token, setToken]);
+  }, [periodo]);
+
+  //
 
   return (
     <div className="home">
       <Header />
+      <div>
+        <Sidebar />
+      </div>
       <div className="content">
         <ul>
-          <li>Este mês</li>
-          <li>Este ano</li>
-          <li>Desde o início</li>
+          <li
+            onClick={() => {
+              setPeriodo("mes");
+            }}
+          >
+            Este mês
+          </li>
+          <li
+            onClick={() => {
+              setPeriodo("ano");
+            }}
+          >
+            Este ano
+          </li>
+          <li
+            onClick={() => {
+              setPeriodo(null);
+            }}
+          >
+            Desde o início
+          </li>
         </ul>
 
         <div className="data">
@@ -58,15 +85,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="faturamento">
-        <ul>
-          <li>Por mês</li>
-          <li>Por dia</li>
-        </ul>
-
-        <div className="graph"></div>
       </div>
     </div>
   );

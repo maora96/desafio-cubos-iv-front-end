@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "./components/login";
-import SignUp from "./components/signup";
-import Recover from "./components/recover";
+import Login from "./pages/login";
+import SignUp from "./pages/signup";
+import Recover from "./pages/recover";
 import Dashboard from "./pages/dashboard";
 import Cobrancas from "./pages/cobrancas";
 import Clientes from "./pages/clientes";
@@ -46,13 +46,15 @@ function App() {
 
 export default App;
 
-// DUVIDAS
-// este mes/ano/desde o inicio
-// paginação (dando erro de vez em quando)
-// aside não aparece em páginas além de home/dashboard
-// um unico style ou para cada componente?
-// criar cobrança as vezes da erro por causa de valor não permitido
-
 // A FAZER
 // styles
-// pagina após criação de cliente/cobrança e edição de cliente !!!nao funciona
+// pagina após criação de cliente/cobrança e edição de cliente !!!nao funciona ?? agora funciona [x]
+// multiplicar por 100 o valor do adicionar cobrança [x]
+// componente com o aside em todas as páginas que possuem aside [x]
+// este mes/ano/desde o início [x]
+// recover (? - se for muito complicado descartar pois é extras)
+
+// DUVIDAS
+// logout nao funciona (token removido, mas requisições ainda funcionam? deixa quieto, funcionou dps). como impedir que o usuario va para a dashboard mesmo sem token?
+// login page nao aparece depois de ser movida para a pasta pages. agora aparece. af.
+// como pegar o nome do cliente na pagina de cobranças? é preciso fazer um novo fetch, etc?
