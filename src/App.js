@@ -48,6 +48,11 @@ export default App;
 
 // A FAZER
 // styles
+//	login/signup: adicionar olhinho na senha no login - configurar botão de login - colocar placeholder em cinza
+//	home: imagem do logout nao funciona - adicionar div que aparece no click/hover - adicionar "active" para as seleções de data
+//	sidebar: como fazer a div ir até o fim da página? - adicionar "active" na pagina atual
+// cobranças: verde/vermelho + img status,
+
 // pagina após criação de cliente/cobrança e edição de cliente !!!nao funciona ?? agora funciona [x]
 // multiplicar por 100 o valor do adicionar cobrança [x]
 // componente com o aside em todas as páginas que possuem aside [x]
@@ -55,6 +60,6 @@ export default App;
 // recover (? - se for muito complicado descartar pois é extras)
 
 // DUVIDAS
-// logout nao funciona (token removido, mas requisições ainda funcionam? deixa quieto, funcionou dps). como impedir que o usuario va para a dashboard mesmo sem token?
+// logout nao funciona (token removido, mas requisições ainda funcionam? deixa quieto, funcionou dps). como impedir que o usuario va para a dashboard mesmo sem token? logout vai para "/" mas login nao aparece
 // login page nao aparece depois de ser movida para a pasta pages. agora aparece. af.
 // como pegar o nome do cliente na pagina de cobranças? é preciso fazer um novo fetch, etc?

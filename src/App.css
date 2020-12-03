@@ -1,38 +1,559 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body {
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background: #f7f7f7;
+  font-family: "Montserrat", sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flex-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.access {
+  background: #ffffff;
+  width: 400px;
+  min-height: 500px;
+  -webkit-box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
+  margin: auto auto;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 4.5rem;
+}
+
+.access img {
+  margin-bottom: 3rem;
+}
+
+.access form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.access form input {
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  background: #fff;
+  padding: 0.7rem 0.5rem;
+}
+
+.access form label {
+  margin-top: 1rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.access form label span {
+  padding-left: 0.5rem;
+}
+
+.access form a {
+  margin-top: 0.4rem;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #263238;
+}
+
+.access form button {
+  background: #f2a6cf;
+  border: none;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 1.5rem;
+  padding: 0.8rem 1.8rem;
+  margin-top: 3rem;
+  color: white;
+  font-weight: 600;
+}
+
+.login-content .bottom-link {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+.login-content .bottom-link a {
+  color: #ea5e9b;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #a5a5a5;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #a5a5a5;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #a5a5a5;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+.home,
+.cobrancas,
+.clientes {
+  display: flex;
+}
+
+.home .main-content,
+.cobrancas .cobrancas-content,
+.clientes .clientes-content,
+.home .add-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home .content,
+.cobrancas .content,
+.clientes .content,
+.home .content {
+  width: 80%;
+}
+
+.home .content ul {
+  display: flex;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #263238;
+  color: #667e87;
+  padding-left: 1rem;
+}
+
+.home .content ul li {
+  list-style-type: none;
+  margin-right: 3rem;
+}
+
+.home .data {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home .home-card {
+  width: 45%;
+  background-color: white;
+  box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.home .home-card h2 {
+  background: #374952;
+  border-radius: 16px 16px 0px 0px;
+  padding: 1.6rem;
+  color: white;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home .home-card h2 img {
+  margin-right: 1rem;
+}
+
+.home .home-card .card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+}
+
+.home .home-card .mini-card {
+  width: 60%;
+  border-radius: 8px;
+  padding: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  font-weight: 600;
+}
+
+.home .home-card .mini-card span {
+  font-size: 2.5rem;
+}
+
+.home .home-card .green {
+  border: 2px solid #4ec06e;
+  color: #4ec06e;
+}
+
+.home .home-card .red {
+  border: 2px solid #ff4d4d;
+  color: #ff4d4d;
+}
+
+.home .home-card .blue {
+  border: 2px solid #5197b5;
+  color: #5197b5;
+}
+
+/* COBRANCAS & CLIENTES */
+
+.cobrancas .content,
+.clientes .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.cobrancas .content .search,
+.clientes .content .search {
+  align-self: flex-end;
+  position: relative;
+  width: 50%;
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+.clientes .content .search {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.clientes .search .form {
+  width: 60%;
+}
+
+.clientes .search a {
+  color: #da0175;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid #da0175;
+  padding: 1rem 4rem;
+  border-radius: 20px;
+}
+
+.cobrancas .content .search input,
+.clientes .search input {
+  border: 1px solid #374952;
+  width: 60%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.cobrancas .content .search button,
+.clientes .search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.6rem 2rem;
+  border: none;
+  border-radius: 8px;
+  background: #374952;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.cobrancas .content .search button img,
+.clientes .search button img {
+  margin-right: 0.6rem;
+}
+
+.cobrancas .tabela-cobrancas table,
+.clientes .tabela-clientes table {
+  border-collapse: separate;
+  border-spacing: 0 20px;
+  width: 100%;
+}
+
+.cobrancas .tabela-cobrancas table td {
+  padding: 1rem;
+  background: white;
+}
+
+.clientes .tabela-clientes table td {
+  padding: 1.5rem;
+  background: white;
+}
+
+.cobrancas .tabela-cobrancas thead,
+.clientes .tabela-clientes thead {
+  background: #9dbbc3;
+  border-radius: 8px;
+}
+
+.cobrancas .tabela-cobrancas thead th,
+.clientes .tabela-clientes thead th {
+  padding: 0.8rem;
+  text-align: left;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.cobrancas .tabela-cobrancas tbody td,
+.clientes .tabela-clientes tbody td {
+  color: #4c4c4c;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.clientes .data-client {
+  display: flex;
+  flex-direction: column;
+}
+
+.clientes .data {
+  margin-bottom: 0.5rem;
+}
+
+.clientes .data:first-child {
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.clientes .data div {
+  display: flex;
+  align-items: center;
+}
+
+.clientes .data div img {
+  margin-right: 0.5rem;
+}
+
+.home .add-content .container {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  padding: 3rem;
+}
+
+.home .add-content h1 {
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  font-weight: normal;
+}
+
+.home .add-content form input,
+.home .add-content form select,
+.home .add-content form textarea {
+  display: block;
+  padding: 0.8rem;
+  width: 100%;
+  border: 1px solid #374952;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.home .add-content form .small {
+  color: #868686;
+  font-weight: normal;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.home .add-content form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.home .add-content form label {
+  width: 100%;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.home .add-content form .input-dados {
+  display: flex;
+  width: 100%;
+}
+
+.home .add-content form .input-dados label:first-child {
+  margin-right: 2rem;
+}
+
+.home .add-content .links {
+  align-self: flex-end;
+}
+
+.home .add-content .links button {
+  border: none;
+  background: #f2a6cf;
+  padding: 1rem 2.5rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+}
+
+.home .add-content .links a {
+  color: #da0175;
+  text-decoration: none;
+  border: 1px solid #da0175;
+  padding: 0.8rem 2.5rem;
+  border-radius: 20px;
+  margin-right: 2rem;
+}
+
+/* HEADER */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+  width: 80%;
+  margin-top: 2rem;
+}
+
+header .saldo {
+  width: 200px;
+  height: 95px;
+  background: #374952;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+header .saldo-flex {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+header .saldo-flex img {
+  margin-right: 0.5rem;
+}
+
+header .money {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+aside {
+  min-width: 270px;
+  height: 100%;
+  background: #263238;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.5rem;
+}
+
+aside ul {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+aside li {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.7rem;
+  font-size: 0.8rem;
+}
+
+aside li a {
+  margin-left: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+aside .cobranca-button {
+  background-color: #da0175;
+  width: 70%;
+  text-align: center;
+  padding: 0.6rem;
+  border-radius: 1.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pagination .pagination-numbers {
+  font-size: 0.8rem;
+  display: flex;
+}
+
+.pagination .pagination-content {
+  display: flex;
+  align-items: center;
+}
+
+.adicionado-sucesso {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.adicionado-sucesso .box {
+  background-color: white;
+  padding: 3rem 5rem;
+}
+
+.adicionado-sucesso .box a {
+  background: #da0175;
+  color: white;
+  text-decoration: none;
+  margin-top: 2rem;
+  padding: 0.8rem 2.5rem;
+  border-radius: 20px;
+}
+
+.adicionado-sucesso .box h1 {
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+@media only screen and (max-device-width: 375px) {
 }

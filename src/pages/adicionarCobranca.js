@@ -32,88 +32,98 @@ export default function AdicionarCobranca() {
 
   return (
     <div className="home">
-      <Header />
       <div>
         <Sidebar />
       </div>
-      <div className="content">
-        <h1>Adicionar cobrança</h1>
-        <form
-          onSubmit={(event) => {
-            console.log(id);
-            const novoToken = localStorage.getItem("token");
-            event.preventDefault();
-            console.log(id, descricao, valor, vencimento);
-            fazerRequisicaoComBody(
-              "http://localhost:8081/cobrancas",
-              "POST",
-              {
-                idDoCliente: id,
-                descricao,
-                valor,
-                vencimento,
-              },
-              novoToken
-            )
-              .then((res) => res.json())
-              .then((resJson) => {
-                console.log(resJson);
-                setId(null);
-                setDescricao("");
-                setValor(null);
-                setVencimento("");
+      <div className="add-content">
+        <Header />
+        <div className="content">
+          <h1>// Criar cobrança</h1>
+          <div className="container">
+            <form
+              onSubmit={(event) => {
+                console.log(id);
+                const novoToken = localStorage.getItem("token");
+                event.preventDefault();
+                console.log(id, descricao, valor, vencimento);
+                fazerRequisicaoComBody(
+                  "http://localhost:8081/cobrancas",
+                  "POST",
+                  {
+                    idDoCliente: id,
+                    descricao,
+                    valor,
+                    vencimento,
+                  },
+                  novoToken
+                )
+                  .then((res) => res.json())
+                  .then((resJson) => {
+                    console.log(resJson);
+                    setId(null);
+                    setDescricao("");
+                    setValor(null);
+                    setVencimento("");
 
-                history.push("/sucesso");
-              });
-          }}
-        >
-          <label>
-            Cliente
-            <select
-              name="clientes"
-              onChange={(event) => {
-                const newId = event.target.value;
-                setId(newId);
-                console.log(newId);
+                    history.push("/sucesso");
+                  });
               }}
             >
-              {clientes.map((cliente) => (
-                <option value={cliente.id}>{cliente.nome}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Descrição
-            <input
-              type="text"
-              onChange={(event) => {
-                setDescricao(event.target.value);
-                console.log(descricao);
-              }}
-            ></input>
-          </label>
-          <label>
-            Valor
-            <input
-              type="number"
-              onChange={(event) => {
-                setValor(event.target.value);
-              }}
-            ></input>
-          </label>
-          <label>
-            Vencimento
-            <input
-              type="text"
-              onChange={(event) => {
-                setVencimento(event.target.value);
-              }}
-            ></input>
-          </label>
+              <label>
+                <span> Cliente</span>
+                <select
+                  name="clientes"
+                  onChange={(event) => {
+                    const newId = event.target.value;
+                    setId(newId);
+                    console.log(newId);
+                  }}
+                >
+                  {clientes.map((cliente) => (
+                    <option value={cliente.id}>{cliente.nome}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span>Descrição</span>
+                <textarea
+                  onChange={(event) => {
+                    setDescricao(event.target.value);
+                    console.log(descricao);
+                  }}
+                ></textarea>
+                <span className="small">
+                  A descrição informada será impressa no boleto.
+                </span>
+              </label>
+              <div className="input-dados">
+                <label>
+                  <span>Valor</span>
+                  <input
+                    type="number"
+                    onChange={(event) => {
+                      setValor(event.target.value);
+                    }}
+                  ></input>
+                </label>
+                <label>
+                  <span>Vencimento</span>
+                  <input
+                    type="text"
+                    onChange={(event) => {
+                      setVencimento(event.target.value);
+                    }}
+                  ></input>
+                </label>
+              </div>
 
-          <Link to="/dashboard">Cancelar</Link>
-          <button>Adicionar cobrança</button>
-        </form>
+              <div className="links">
+                <Link to="/dashboard">Cancelar</Link>
+                <button>Adicionar cobrança</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

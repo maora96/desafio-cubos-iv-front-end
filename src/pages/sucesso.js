@@ -6,8 +6,10 @@ export default function Sucesso() {
   return (
     <BrowserRouter>
       <div className="adicionado-sucesso">
-        <h1>Sucesso!</h1>
-        <a href="/dashboard">Voltar para a Dashboard</a>
+        <div className="box">
+          <h1>Sucesso!</h1>
+          <a href="/dashboard">Voltar para a Dashboard</a>
+        </div>
       </div>
     </BrowserRouter>
   );

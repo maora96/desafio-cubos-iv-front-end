@@ -1,6 +1,8 @@
 import React from "react";
 import "../App.css";
 import { useHistory } from "react-router-dom";
+import dollar from "../images/dollar.png";
+import logout from "../images/logout.png";
 
 export default function Header() {
   const [relatorio, setRelatorio] = React.useState([]);
@@ -27,7 +29,13 @@ export default function Header() {
 
   return (
     <header>
-      <div className="saldo">$ saldo em conta R$ {relatorio?.saldoEmConta}</div>
+      <div className="saldo">
+        <div className="saldo-flex">
+          <img src={dollar} alt="dollar" />
+          Saldo em conta
+        </div>
+        <div className="money">R$ {relatorio?.saldoEmConta}</div>
+      </div>
 
       <div
         className="logout"
@@ -35,7 +43,7 @@ export default function Header() {
           logout();
         }}
       >
-        logout
+        <img src={logout} alt="dollar" />
       </div>
     </header>
   );

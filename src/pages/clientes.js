@@ -3,6 +3,10 @@ import "../App.css";
 import Header from "../components/header";
 import Pagination from "../components/pagination";
 import Sidebar from "../components/sidebar";
+import email from "../images/email.png";
+import edit from "../images/edit.png";
+import phone from "../images/phone.png";
+import search from "../images/search.png";
 
 const colunas = [
   "Cliente",
@@ -84,82 +88,105 @@ export default function Clientes() {
 
   return (
     <div className="clientes">
-      <Header />
       <div>
         <Sidebar />
       </div>
-      <div className="search">
-        <a href="/adicionarCliente">Adicionar cliente</a>
-        <form
-          onSubmit={(event) => {
-            const novoToken = localStorage.getItem("token");
-            console.log(novoToken);
-            console.log(busca);
-            event.preventDefault();
-            fetch(`http://localhost:8081/clientes?busca=${busca}`, {
-              headers: {
-                Authorization: novoToken && `Bearer ${novoToken}`,
-              },
-            })
-              .then((res) => res.json())
-              .then((resJson) => {
-                console.log(resJson);
-                console.log(busca);
-                setBusca("");
-              });
-          }}
-        >
-          <input
-            type="text"
-            onChange={(event) => {
-              setBusca(event.target.value);
-            }}
-          ></input>
-        </form>
-        <button>Buscar</button>
-      </div>
-
-      <div className="tabela-clientes">
-        <table>
-          <thead>
-            <tr>
-              {colunas.map((coluna) => (
-                <th>{coluna}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {clientes.map((cliente) => (
-              <tr>
-                {props.map((prop) => (
-                  <td>
-                    {prop === "edit" ? (
-                      <a href={cliente[prop]}>Editar</a>
-                    ) : prop === "data" ? (
-                      cliente[prop].map((d) => <span>{d}</span>)
-                    ) : (
-                      cliente[prop]
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className="pagination">
-          {pages.map((page) => (
-            <div
-              onClick={() => {
-                setPaginaAtual(page);
-              }}
-            >
-              {page}
+      <div className="clientes-content">
+        <Header />
+        <div className="content">
+          <div className="search">
+            <a href="/adicionarCliente">Adicionar cliente</a>
+            <div className="form">
+              <form
+                onSubmit={(event) => {
+                  const novoToken = localStorage.getItem("token");
+                  console.log(novoToken);
+                  console.log(busca);
+                  event.preventDefault();
+                  fetch(`http://localhost:8081/clientes?busca=${busca}`, {
+                    headers: {
+                      Authorization: novoToken && `Bearer ${novoToken}`,
+                    },
+                  })
+                    .then((res) => res.json())
+                    .then((resJson) => {
+                      console.log(resJson);
+                      console.log(busca);
+                      setBusca("");
+                    });
+                }}
+              >
+                <input
+                  type="text"
+                  onChange={(event) => {
+                    setBusca(event.target.value);
+                  }}
+                ></input>
+              </form>
+              <button>
+                <img src={search} alt="Buscar" />
+                Buscar
+              </button>
             </div>
-          ))}
+          </div>
+
+          <div className="tabela-clientes">
+            <table>
+              <thead>
+                <tr>
+                  {colunas.map((coluna) => (
+                    <th>{coluna}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {clientes.map((cliente) => (
+                  <tr>
+                    {props.map((prop) => (
+                      <td>
+                        {prop === "edit" ? (
+                          <a href={cliente[prop]}>
+                            <img src={edit} alt="Editar" />
+                          </a>
+                        ) : prop === "data" ? (
+                          <div className="data-client">
+                            {cliente[prop].map((d, i) => (
+                              <span className={`${prop}`}>
+                                {i === 1 ? (
+                                  <div>
+                                    {" "}
+                                    <img src={email} alt="Email" /> {d}
+                                  </div>
+                                ) : i === 2 ? (
+                                  <div>
+                                    <img src={phone} alt="Telefone" />
+                                    {d}
+                                  </div>
+                                ) : (
+                                  <div>{d}</div>
+                                )}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          cliente[prop]
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <Pagination
+              totalPaginas={totalPaginas}
+              setTotalPaginas={setTotalPaginas}
+              paginaAtual={paginaAtual}
+              setPaginaAtual={setPaginaAtual}
+            />
+          </div>
         </div>
       </div>
-      <div className="pagination"></div>
     </div>
   );
 }

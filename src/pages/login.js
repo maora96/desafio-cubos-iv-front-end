@@ -4,6 +4,7 @@ import { BrowserRouter, Link, useHistory } from "react-router-dom";
 import { fazerRequisicaoComBody } from "../utils/fetch";
 import Dashboard from "./dashboard";
 import { useToken } from "../App";
+import logo from "../images/logo.png";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
@@ -12,13 +13,10 @@ export default function Login() {
   const history = useHistory();
 
   return (
-    <BrowserRouter>
-      {token !== null ? (
-        <div>
-          <Dashboard />
-        </div>
-      ) : (
+    <div className="flex-container">
+      <div className="login-content">
         <div className="access">
+          <img src={logo} alt="Logo" />
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -43,7 +41,7 @@ export default function Login() {
             }}
           >
             <label>
-              Email
+              <span>E-mail</span>
               <input
                 type="email"
                 onChange={(event) => {
@@ -52,7 +50,7 @@ export default function Login() {
               ></input>
             </label>
             <label>
-              Senha
+              <span>Senha</span>
               <input
                 type="password"
                 onChange={(event) => {
@@ -64,9 +62,11 @@ export default function Login() {
 
             <button>Entrar</button>
           </form>
-          Não tem uma conta?<a href="/signup">Cadastre-se</a>
         </div>
-      )}
-    </BrowserRouter>
+        <div className="bottom-link">
+          Não tem uma conta? <a href="/signup">Cadastre-se</a>
+        </div>
+      </div>
+    </div>
   );
 }

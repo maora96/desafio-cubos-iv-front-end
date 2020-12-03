@@ -1,9 +1,10 @@
 import React from "react";
 import "../App.css";
+import chevronl from "../images/chevron-left.png";
+import chevronr from "../images/chevron-right.png";
 
 export default function Pagination(props) {
-  const [paginaAtual, setPaginaAtual] = React.useState(null);
-  const [totalPaginas, setTotalPaginas] = React.useState(null);
+  const { paginaAtual, setPaginaAtual, totalPaginas, setTotalPaginas } = props;
 
   React.useEffect(() => {
     const novoToken = localStorage.getItem("token");
@@ -28,15 +29,26 @@ export default function Pagination(props) {
     for (let i = 1; i <= totalPaginas; i++) {
       pages.push(i);
     }
-    console.log(pages);
   };
 
   numberOfPages(totalPaginas);
   return (
     <div className="pagination">
-      {pages.map((page) => (
-        <div>{page}</div>
-      ))}
+      <div className="pagination-content">
+        <img src={chevronl} alt="Esquerda" />
+        <div className="pagination-numbers">
+          {pages.map((page) => (
+            <div
+              onClick={(event) => {
+                setPaginaAtual(page);
+              }}
+            >
+              {page}
+            </div>
+          ))}
+        </div>
+        <img src={chevronr} alt="Direita" />
+      </div>
     </div>
   );
 }

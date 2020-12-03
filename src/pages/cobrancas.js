@@ -1,8 +1,10 @@
 import React from "react";
 import "../App.css";
 import Header from "../components/header";
-import { useToken } from "../App";
+import Pagination from "../components/pagination";
 import Sidebar from "../components/sidebar";
+import printer from "../images/printer.png";
+import search from "../images/search.png";
 
 const colunas = [
   "Cliente",
@@ -23,7 +25,6 @@ const props = [
 ];
 
 export default function Cobrancas() {
-  const { token, setToken } = useToken();
   const [busca, setBusca] = React.useState("");
   const [cobrancas, setCobrancas] = React.useState([]);
   const [paginaAtual = 1, setPaginaAtual] = React.useState(1);
@@ -89,77 +90,82 @@ export default function Cobrancas() {
 
   return (
     <div className="cobrancas">
-      <Header />
       <div>
         <Sidebar />
       </div>
-      <div className="search">
-        <form
-          onSubmit={(event) => {
-            const novoToken = localStorage.getItem("token");
-            console.log(novoToken);
-            console.log(busca);
-            event.preventDefault();
-            fetch(`http://localhost:8081/clientes?busca=${busca}`, {
-              headers: {
-                Authorization: novoToken && `Bearer ${novoToken}`,
-              },
-            })
-              ///adicionar busca clientes por pagina offset
-              .then((res) => res.json())
-              .then((resJson) => {
-                console.log(resJson);
+      <div className="cobrancas-content">
+        <Header />
+        <div className="content">
+          <div className="search">
+            <form
+              onSubmit={(event) => {
+                const novoToken = localStorage.getItem("token");
+                console.log(novoToken);
                 console.log(busca);
-                setBusca("");
-              });
-          }}
-        >
-          <input
-            type="text"
-            onChange={(event) => {
-              setBusca(event.target.value);
-            }}
-          ></input>
-        </form>
-        <button>Buscar</button>
-      </div>
-
-      <div className="tabela-cobrancas">
-        <table>
-          <thead>
-            <tr>
-              {colunas.map((coluna) => (
-                <th>{coluna}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {cobrancas.map((cobranca) => (
-              <tr>
-                {props.map((prop) => (
-                  <td>
-                    {prop === "linkDoBoleto" ? (
-                      <a href={cobranca[prop]}>Boleto</a>
-                    ) : (
-                      cobranca[prop]
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="pagination">
-        {pages.map((page) => (
-          <div
-            onClick={(event) => {
-              setPaginaAtual(page);
-            }}
-          >
-            {page}
+                event.preventDefault();
+                fetch(`http://localhost:8081/clientes?busca=${busca}`, {
+                  headers: {
+                    Authorization: novoToken && `Bearer ${novoToken}`,
+                  },
+                })
+                  ///adicionar busca clientes por pagina offset
+                  .then((res) => res.json())
+                  .then((resJson) => {
+                    console.log(resJson);
+                    console.log(busca);
+                    setBusca("");
+                  });
+              }}
+            >
+              <input
+                type="text"
+                onChange={(event) => {
+                  setBusca(event.target.value);
+                }}
+              ></input>
+            </form>
+            <button>
+              <img src={search} alt="Buscar" />
+              Buscar
+            </button>
           </div>
-        ))}
+
+          <div className="tabela-cobrancas">
+            <table>
+              <thead>
+                <tr>
+                  {colunas.map((coluna) => (
+                    <th>{coluna}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {cobrancas.map((cobranca) => (
+                  <tr>
+                    {props.map((prop) => (
+                      <td>
+                        {prop === "linkDoBoleto" ? (
+                          <a href={cobranca[prop]}>
+                            <img src={printer} alt="Boleto" />
+                          </a>
+                        ) : (
+                          cobranca[prop]
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <Pagination
+            totalPaginas={totalPaginas}
+            setTotalPaginas={setTotalPaginas}
+            paginaAtual={paginaAtual}
+            setPaginaAtual={setPaginaAtual}
+          />
+        </div>
       </div>
     </div>
   );

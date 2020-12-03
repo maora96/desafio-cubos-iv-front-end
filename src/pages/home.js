@@ -3,6 +3,8 @@ import "../App.css";
 import Header from "../components/header";
 import { useToken } from "../App";
 import Sidebar from "../components/sidebar";
+import money from "../images/carbon_money.png";
+import users from "../images/users.png";
 
 export default function Home() {
   const { token, setToken } = useToken();
@@ -28,60 +30,73 @@ export default function Home() {
 
   return (
     <div className="home">
-      <Header />
       <div>
         <Sidebar />
       </div>
-      <div className="content">
-        <ul>
-          <li
-            onClick={() => {
-              setPeriodo("mes");
-            }}
-          >
-            Este mês
-          </li>
-          <li
-            onClick={() => {
-              setPeriodo("ano");
-            }}
-          >
-            Este ano
-          </li>
-          <li
-            onClick={() => {
-              setPeriodo(null);
-            }}
-          >
-            Desde o início
-          </li>
-        </ul>
+      <div className="main-content">
+        <Header />
 
-        <div className="data">
-          <div>
-            <h2>Clientes</h2>
-            <div>
-              Em dia
-              <span>{relatorio?.qtdClientesAdimplentes}</span>
+        <div className="content">
+          <ul>
+            <li
+              onClick={() => {
+                setPeriodo("mes");
+              }}
+            >
+              Este mês
+            </li>
+            <li
+              onClick={() => {
+                setPeriodo("ano");
+              }}
+            >
+              Este ano
+            </li>
+            <li
+              onClick={() => {
+                setPeriodo(null);
+              }}
+            >
+              Desde o início
+            </li>
+          </ul>
+
+          <div className="data">
+            <div className="home-card">
+              <h2>
+                <img src={users} alt="Clientes" />
+                Clientes
+              </h2>
+              <div className="card-content">
+                <div className="mini-card green">
+                  Em dia
+                  <span>{relatorio?.qtdClientesAdimplentes}</span>
+                </div>
+                <div className="mini-card red">
+                  Inadimplentes
+                  <span>{relatorio?.qtdClientesInadimplentes}</span>
+                </div>
+              </div>
             </div>
-            <div>
-              Inadimplentes
-              <span>{relatorio?.qtdClientesInadimplentes}</span>
-            </div>
-          </div>
-          <div>
-            <h2>Cobranças</h2>
-            <div>
-              Previstas
-              <span>{relatorio?.qtdCobrancasPrevistas}</span>
-            </div>
-            <div>
-              Vencidas
-              <span>{relatorio?.qtdCobrancasVencidas}</span>
-            </div>
-            <div>
-              Pagas
-              <span>{relatorio?.qtdCobrancasPagas}</span>
+            <div className="home-card">
+              <h2>
+                <img src={money} alt="Cobranças" />
+                Cobranças
+              </h2>
+              <div className="card-content">
+                <div className="mini-card blue">
+                  Previstas
+                  <span>{relatorio?.qtdCobrancasPrevistas}</span>
+                </div>
+                <div className="mini-card red">
+                  Vencidas
+                  <span>{relatorio?.qtdCobrancasVencidas}</span>
+                </div>
+                <div className="mini-card green">
+                  Pagas
+                  <span>{relatorio?.qtdCobrancasPagas}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
