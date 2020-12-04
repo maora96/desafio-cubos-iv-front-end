@@ -97,7 +97,8 @@ body {
 .login-content .bottom-link a {
   color: #ea5e9b;
 }
-::placeholder {
+
+input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #a5a5a5;
   opacity: 1; /* Firefox */
@@ -149,7 +150,6 @@ select:-webkit-autofill:focus {
 
 .home .content ul {
   display: flex;
-  padding-bottom: 0.8rem;
   border-bottom: 1px solid #263238;
   color: #667e87;
   padding-left: 1rem;
@@ -158,6 +158,7 @@ select:-webkit-autofill:focus {
 .home .content ul li {
   list-style-type: none;
   margin-right: 3rem;
+  padding-bottom: 1.5rem;
 }
 
 .home .data {
@@ -224,6 +225,11 @@ select:-webkit-autofill:focus {
 .home .home-card .blue {
   border: 2px solid #5197b5;
   color: #5197b5;
+}
+
+.home .content .active {
+  font-weight: 600;
+  border-bottom: 3px solid #263238;
 }
 
 /* COBRANCAS & CLIENTES */
@@ -428,6 +434,40 @@ select:-webkit-autofill:focus {
   margin-right: 2rem;
 }
 
+.em-dia {
+  font-weight: 600;
+  color: #4ec06e;
+}
+
+.inadimplente {
+  font-weight: 600;
+  color: #ff4d4d;
+}
+
+.pendente {
+  font-weight: 600;
+  color: #5197b5;
+  display: flex;
+  align-items: center;
+}
+
+.pendente img,
+.pago img {
+  margin-right: 0.4rem;
+}
+
+.vencido {
+  font-weight: 600;
+  color: #ff4d4d;
+}
+
+.pago {
+  font-weight: 600;
+  color: #4ec06e;
+  display: flex;
+  align-items: center;
+}
+
 /* HEADER */
 
 header {
@@ -466,6 +506,36 @@ header .money {
   margin-top: 0.4rem;
 }
 
+header .hide-me {
+  background: white;
+  padding: 1.5rem 3rem;
+  box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: absolute;
+  top: 45px;
+  right: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header .hide-me img {
+  margin-right: 0.5rem;
+}
+
+header .hide {
+  display: none;
+}
+
+header .show-me {
+  display: flex;
+}
+
+header .logout {
+  position: relative;
+}
+
+/* SIDEBAR */
 aside {
   min-width: 270px;
   height: 100%;
@@ -474,6 +544,7 @@ aside {
   flex-direction: column;
   align-items: center;
   padding-top: 1.5rem;
+  min-height: 100vh;
 }
 
 aside ul {
@@ -556,4 +627,62 @@ aside .cobranca-button {
 }
 
 @media only screen and (max-device-width: 375px) {
+  .access {
+    max-width: 300px;
+    padding: 3rem;
+  }
+
+  .access form button {
+    padding: 0.8rem 1.5rem;
+    margin-top: 1rem;
+  }
+
+  aside {
+    display: none;
+  }
+
+  header {
+    width: 100%;
+  }
+
+  header .saldo {
+    width: 100%;
+    border-radius: 0;
+    padding: 1.2rem;
+    align-items: flex-end;
+  }
+
+  header .saldo img {
+    display: none;
+  }
+
+  header .logout {
+    display: none;
+  }
+
+  .home .content ul {
+    justify-content: space-between;
+  }
+
+  .home .content ul li {
+    margin-right: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .home .data {
+    flex-direction: column;
+  }
+
+  .home .data .home-card {
+    width: auto;
+    margin-bottom: 2rem;
+  }
+
+  .home .home-card .mini-card {
+    padding: 1rem;
+  }
+
+  .home .home-card .mini-card span {
+    margin-left: 0.4rem;
+  }
 }

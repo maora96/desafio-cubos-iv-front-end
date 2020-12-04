@@ -5,6 +5,8 @@ import Pagination from "../components/pagination";
 import Sidebar from "../components/sidebar";
 import printer from "../images/printer.png";
 import search from "../images/search.png";
+import pago from "../images/pago.png";
+import pendente from "../images/pendente.png";
 
 const colunas = [
   "Cliente",
@@ -22,6 +24,38 @@ const props = [
   "status",
   "vencimento",
   "linkDoBoleto",
+];
+
+const props2 = [
+  { name: "idDoCliente" },
+  { name: "descricao" },
+  { name: "valor" },
+  {
+    name: "status",
+    render: (status) =>
+      status === "PENDENTE" ? (
+        <div className={status.toLowerCase().replace(/ /g, "-")}>
+          <img src={pendente} alt="Pendente" />
+          {status}
+        </div>
+      ) : status === "PAGO" ? (
+        <div className={status.toLowerCase().replace(/ /g, "-")}>
+          <img src={pago} alt="Pendente" />
+          {status}
+        </div>
+      ) : (
+        <div className={status.toLowerCase().replace(/ /g, "-")}>{status}</div>
+      ),
+  },
+  { name: "vencimento" },
+  {
+    name: "linkDoBoleto",
+    render: () => (
+      <a href={"linkDoBoleto"}>
+        <img src={printer} alt="Boleto" />
+      </a>
+    ),
+  },
 ];
 
 export default function Cobrancas() {
@@ -142,15 +176,19 @@ export default function Cobrancas() {
               <tbody>
                 {cobrancas.map((cobranca) => (
                   <tr>
-                    {props.map((prop) => (
+                    {props2.map((prop) => (
                       <td>
-                        {prop === "linkDoBoleto" ? (
+                        {prop.render
+                          ? prop.render(cobranca[prop.name])
+                          : cobranca[prop.name]}
+
+                        {/* {prop === "linkDoBoleto" ? (
                           <a href={cobranca[prop]}>
                             <img src={printer} alt="Boleto" />
                           </a>
                         ) : (
                           cobranca[prop]
-                        )}
+                        )} */}
                       </td>
                     ))}
                   </tr>

@@ -2,11 +2,15 @@ import React from "react";
 import "../App.css";
 import { useHistory } from "react-router-dom";
 import dollar from "../images/dollar.png";
-import logout from "../images/logout.png";
+import { useToken } from "../App";
+import logoutimg from "../images/logout.png";
+import log from "../images/log-out.png";
 
 export default function Header() {
   const [relatorio, setRelatorio] = React.useState([]);
   const history = useHistory();
+  const token = useToken();
+  const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
     const novoToken = localStorage.getItem("token");
@@ -23,6 +27,7 @@ export default function Header() {
   }, []);
 
   const logout = () => {
+    token.setToken(null);
     localStorage.removeItem("token");
     history.push("/");
   };
@@ -40,10 +45,19 @@ export default function Header() {
       <div
         className="logout"
         onClick={() => {
-          logout();
+          setVisible(!visible);
         }}
       >
-        <img src={logout} alt="dollar" />
+        <div
+          onClick={() => {
+            logout();
+          }}
+          className={`${visible === true ? "show-me" : "hide"} hide-me`}
+        >
+          <img src={log} alt="Logout" />
+          Deslogar
+        </div>
+        <img src={logoutimg} alt="dollar" />
       </div>
     </header>
   );

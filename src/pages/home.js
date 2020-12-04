@@ -39,6 +39,7 @@ export default function Home() {
         <div className="content">
           <ul>
             <li
+              className={periodo === "mes" ? "active" : ""}
               onClick={() => {
                 setPeriodo("mes");
               }}
@@ -46,6 +47,7 @@ export default function Home() {
               Este mês
             </li>
             <li
+              className={periodo === "ano" ? "active" : ""}
               onClick={() => {
                 setPeriodo("ano");
               }}
@@ -53,6 +55,7 @@ export default function Home() {
               Este ano
             </li>
             <li
+              className={periodo === null ? "active" : ""}
               onClick={() => {
                 setPeriodo(null);
               }}

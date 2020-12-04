@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { BrowserRouter, Link, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { fazerRequisicaoComBody } from "../utils/fetch";
 import Dashboard from "./dashboard";
 import { useToken } from "../App";
@@ -44,6 +44,7 @@ export default function Login() {
               <span>E-mail</span>
               <input
                 type="email"
+                placeholder="email@email.com"
                 onChange={(event) => {
                   setEmail(event.target.value);
                 }}

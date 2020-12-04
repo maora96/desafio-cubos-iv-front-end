@@ -4,7 +4,7 @@ import Header from "../components/header";
 import Pagination from "../components/pagination";
 import Sidebar from "../components/sidebar";
 import email from "../images/email.png";
-import edit from "../images/edit.png";
+import editimg from "../images/edit.png";
 import phone from "../images/phone.png";
 import search from "../images/search.png";
 
@@ -16,12 +16,47 @@ const colunas = [
   "",
 ];
 
-const props = [
-  "data",
-  "cobrancasFeitas",
-  "cobrancasRecebidas",
-  "estaInadimplente",
-  "edit",
+const props2 = [
+  {
+    name: "data",
+    render: (data) => (
+      <div className="data-client">
+        {data.map((d, i) => (
+          <span className={"data"}>
+            {i === 1 ? (
+              <div>
+                <img src={email} alt="Email" /> {d}
+              </div>
+            ) : i === 2 ? (
+              <div>
+                <img src={phone} alt="Telefone" />
+                {d}
+              </div>
+            ) : (
+              <div>{d}</div>
+            )}
+          </span>
+        ))}
+      </div>
+    ),
+  },
+  { name: "cobrancasFeitas" },
+  { name: "cobrancasRecebidas" },
+
+  {
+    name: "estaInadimplente",
+    render: (status) => (
+      <div className={status.toLowerCase().replace(/ /g, "-")}>{status}</div>
+    ),
+  },
+  {
+    name: "edit",
+    render: (edit) => (
+      <a href={edit}>
+        <img src={editimg} alt="Editar" />
+      </a>
+    ),
+  },
 ];
 
 export default function Clientes() {
@@ -142,7 +177,15 @@ export default function Clientes() {
               <tbody>
                 {clientes.map((cliente) => (
                   <tr>
-                    {props.map((prop) => (
+                    {props2.map((prop) => (
+                      <td>
+                        {prop.render
+                          ? prop.render(cliente[prop.name])
+                          : cliente[prop.name]}
+                      </td>
+                    ))}
+
+                    {/* {props.map((prop) => (
                       <td>
                         {prop === "edit" ? (
                           <a href={cliente[prop]}>
@@ -154,7 +197,7 @@ export default function Clientes() {
                               <span className={`${prop}`}>
                                 {i === 1 ? (
                                   <div>
-                                    {" "}
+                                    
                                     <img src={email} alt="Email" /> {d}
                                   </div>
                                 ) : i === 2 ? (
@@ -172,7 +215,7 @@ export default function Clientes() {
                           cliente[prop]
                         )}
                       </td>
-                    ))}
+                    ))} */}
                   </tr>
                 ))}
               </tbody>
